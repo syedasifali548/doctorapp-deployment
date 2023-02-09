@@ -1,152 +1,70 @@
-import React, { useEffect, useState } from "react";
+// import { useState, useEffect } from 'react'
 import "../styles/RegiserStyles.css";
-// import { Form, Input, message } from "antd";
-// import axios from "axios";
-import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify'
-import { FaUser } from 'react-icons/fa'
-import { register, reset } from "../redux/features/userReducer";
-import Spinner from "../components/Spinner";
-const Register = () => {
-  const [formData , setFormData] = useState({
-    name:'',
-    email:'',
-    password:'',
-    password2: '',
-  })
-  const {name ,email , password , password2} = formData;
-  
-  const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const {user,isLoading,isError,isSuccess,message} = useSelector(
-    (state)=>state.user
-  )
-  
- useEffect(()=>{
-  if(isError){
-    toast.error(message)
-  }
-  if(isSuccess){
-    navigate('/login')
-  }
-  dispatch(reset())
-},[isError,isLoading,isSuccess,message,dispatch])
+import { Form, Input, message } from "antd";
+// import { FaUser } from 'react-icons/fa'
+import { useNavigate,Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '../redux/features/alertSlice';
+// import { message } from 'antd';
+import { toast } from 'react-toastify';
+import axios from "axios";
 
-if(isSuccess){
-  return toast.success("User Created Successfully!")
-}
+function Register() {
+const navigate = useNavigate()
+const dispatch = useDispatch()
 
- const handleChange = (e) => {
-  setFormData((prevState) => ({
-    ...prevState,
-    [e.target.name]: e.target.value,
-  }))
-}
+const onfinishHandler= async(values)=>{
+  try {
+     dispatch(showLoading())
+     const res = await axios.post('/api/users/register',values)
+     dispatch(hideLoading())
+     if(res.data.success){
+      message.success("Registered Successfully!")
+      navigate('/login')
+     }
+     else{
+      message.error(res.data.message)
+     }
 
-const submitForm=(e)=>{
-  e.preventDefault();
-  if(password !== password2){
-    toast.error("Passsword Does not match")
-  }
-  else{
-    const userData={
-      name,email,password
-    }
-    dispatch(register(userData))
+
+
+
+  } catch (error) {
+    dispatch(hideLoading())
+    console.log(error)
+    toast.error("Something Went Wrong") 
   }
 
 }
-if(isError){
-  return <Spinner/>
-}
-
 
   return (
     <>
-      <section className='heading'>
-        <h1>
-          <FaUser /> Register
-        </h1>
-        <p>Please create an account</p>
-      </section>
-
-      <section className='form'>
-        <form onSubmit={submitForm}>
-          <div className='form-group'>
-            <input
-              type='text'
-              className='form-control'
-              id='name'
-              name='name'
-              placeholder='Enter your name'
-              value={name}
-              onChange={handleChange}
-         
-            />
-          </div>
-          <div className='form-group'>
-            <input
-              type='email'
-              className='form-control'
-              id='email'
-              name='email'
-              placeholder='Enter your email'
-              value={email}
-              onChange={handleChange}
-         
-            />
-          </div>
-          <div className='form-group'>
-            <input
-              type='password'
-              className='form-control'
-              id='password'
-              name='password'
-              placeholder='Enter password'
-              value={password}
-              onChange={handleChange}
-            />
-          </div>
-          <div className='form-group'>
-          <input
-              type='password'
-              className='form-control'
-              id='password2'
-              name='password2'
-              value={password2}
-              placeholder='Confirm password'
-              onChange={handleChange}
-            />
-          </div>
-         
-          <div className='form-group'>
-            <button type='submit' className='btn btn-block'>
-              Submit
-            </button>
-            <Link to='/login'>Have an account?</Link>
-          </div>
-        </form>
-      </section>
+      <div className="form-container ">
+        <Form
+          layout="vertical"
+          onFinish={onfinishHandler}
+          className="register-form"
+        >
+          <h3 className="text-center">Register From</h3>
+          <Form.Item label="Name" name="name">
+            <Input type="text" required />
+          </Form.Item>
+          <Form.Item label="Email" name="email">
+            <Input type="email" required />
+          </Form.Item>
+          <Form.Item label="Password" name="password">
+            <Input type="password" required />
+          </Form.Item>
+          <Link to="/login" className="m-2">
+            Already user login here
+          </Link>
+          <button className="btn btn-primary" type="submit">
+            Register
+          </button>
+        </Form>
+      </div>
     </>
-  );
-};
+  )
+}
 
-export default Register;
-
-
-  // /form handler
-  // const onfinishHandler = async (values) => {
-  //   try {
-  //     const res = await axios.post("/api/users", values);
-  //     if (res.data.success) {
-  //       message.success("Register Successfully!");
-  //       navigate("/");
-  //     } else {
-  //       message.error(res.data.message);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     message.error("Something Went Wrong");
-  //   }
-  // };
+export default Register

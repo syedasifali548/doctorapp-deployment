@@ -1,100 +1,62 @@
-import { useState, useEffect } from 'react'
-import { FaSignInAlt } from 'react-icons/fa'
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { login,reset } from '../redux/features/userReducer'
-import Spinner from '../components/Spinner'
+import React from "react";
+import "../styles/RegiserStyles.css";
+import { Form, Input, message } from "antd";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Login() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  })
-
-  const { email, password } = formData
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.user
-  )
-  const onSubmit = (e) => {
-    e.preventDefault()
-    const userData = {
-      email,
-      password,
+const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  //form handler
+  const onfinishHandler = async (values) => {
+   try{
+    dispatch(showLoading());
+    const res = await axios.post('/api/users/login',values)
+    window.location.reload()
+    dispatch(hideLoading());
+    if(res.data.success){
+      localStorage.setItem("token",res.data.token)
+      message.success("Logged in Successfully!")
+      navigate('/')
     }
-    dispatch(login(userData))
-  }
+    else{
+      message.error(res.data.message)
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(message)
-    }    
-    dispatch(reset())
-  }, [user, isError, isSuccess, message, navigate, dispatch])
-  
-  if (isSuccess) {
-    navigate('/')
-    return toast.success("Logged in Successfully!")
-  }
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
-  }
-
-
-  if (isLoading) {
-    return <Spinner/>
-  }
+    }
+   }
+   catch(error){
+    dispatch(hideLoading())
+    console.log(error)
+    message.error("Something went wrong!")
+    
+   }
+  };
   return (
-    <>
-      <section className='heading'>
-        <h1>
-          <FaSignInAlt /> Login
-        </h1>
-        <p>Login and start setting goals</p>
-      </section>
+    <div className="form-container ">
+      <Form
+        layout="vertical"
+        onFinish={onfinishHandler}
+        className="register-form"
+      >
+        <h3 className="text-center">Login From</h3>
 
-      <section className='form'>
-        <form onSubmit={onSubmit}>
-          <div className='form-group'>
-            <input
-              type='email'
-              className='form-control'
-              id='email'
-              name='email'
-              value={email}
-              placeholder='Enter your email'
-              onChange={onChange}
-            />
-          </div>
-          <div className='form-group'>
-            <input
-              type='password'
-              className='form-control'
-              id='password'
-              name='password'
-              value={password}
-              placeholder='Enter password'
-              onChange={onChange}
-            />
-          </div>
+        <Form.Item label="Email" name="email">
+          <Input type="email" required />
+        </Form.Item>
+        <Form.Item label="Password" name="password">
+          <Input type="password" required />
+        </Form.Item>
+        <Link to="/register" className="m-2">
+          Not a user Register here
+        </Link>
+        <button className="btn btn-primary" type="submit">
+          Login
+        </button>
+      </Form>
+    </div>
+  );
+};
 
-          <div className='form-group'>
-            <button type='submit' className='btn btn-block'>
-              Submit
-            </button>
-            <Link to='/register'>Don't acctount?</Link>
-          </div>
-        </form>
-      </section>
-    </>
-  )
-}
-
-export default Login
+export default Login;
