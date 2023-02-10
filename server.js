@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(moragan("dev"));
 app.use(cors());
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/admin", require("./routes/adminRoutes"));
 
 
 app.listen(port, () => {

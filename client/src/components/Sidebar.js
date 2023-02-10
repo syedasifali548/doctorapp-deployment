@@ -20,9 +20,13 @@ const Sidebar = () => {
   const SidebarMenu = user?.isAdmin ? adminMenu : userMenu;
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar expand="lg">
         <div className="sidebar_container">
-          <Navbar.Brand href="#home">DOCTOR APP</Navbar.Brand>
+          <Navbar.Brand to="/">
+            <h4 style={{color:'#fff'}}>
+            DOCTOR APP
+            </h4>
+            </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto sidebar_links">
