@@ -17,6 +17,7 @@ app.use(moragan("dev"));
 app.use(cors());
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
+app.use("/api/doctor", require("./routes/doctorRoutes"));
 
 
 app.listen(port, () => {
