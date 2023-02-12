@@ -1,8 +1,7 @@
-import Layout from "antd/es/layout/layout";
 import React, { useState,useEffect } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "./Sidebar";
 import { Container, Row, Col } from "react-bootstrap";
-import DoctorList from "../components/DoctorList";
+import DoctorList from "./DoctorList";
 import { useSelector } from "react-redux";
 import { BsFillBellFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,33 +10,33 @@ import { Badge } from "antd";
 import  axios  from 'axios';
 
 
-const HomePage = ({ children }) => {
+const Layout = ({ children }) => {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate()
   const [doctors, setDoctors] = useState([]);
   // login user data
-  const getUserData = async () => {
-    try {
-      const res = await axios.get(
-        "/api/users/getAllDoctors",
+  // const getUserData = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       "/api/users/getAllDoctors",
 
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      );
-      if (res.data.success) {
-        setDoctors(res.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //       {
+  //         headers: {
+  //           Authorization: "Bearer " + localStorage.getItem("token"),
+  //         },
+  //       }
+  //     );
+  //     if (res.data.success) {
+  //       setDoctors(res.data.data);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
+  // useEffect(() => {
+  //   getUserData();
+  // }, []);
 
   return (
 
@@ -66,12 +65,7 @@ const HomePage = ({ children }) => {
                 </div>
               </Col>
               <Col md={12}>
-                <div className="main_body">
-                  <h2 className="text-center p-2">Home Page</h2>
-                  <Row>
-                    {doctors?.map((doctor)=><DoctorList doctor={doctor}/>)}
-                  </Row>
-                  {children}</div>
+              <div className="body">{children}</div>
               </Col>
             </Row>
           </Col>
@@ -81,4 +75,4 @@ const HomePage = ({ children }) => {
   );
 };
 
-export default HomePage;
+export default Layout;

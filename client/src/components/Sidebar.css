@@ -74,3 +74,17 @@
 .notification_header h2{
   color: #645CBB;
 }
+.doctor_list_wrapper{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  margin: 20px 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.docto_list_item {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+}

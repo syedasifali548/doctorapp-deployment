@@ -1,5 +1,5 @@
 import React from 'react'
-import HomePage from './../HomePage';
+import HomePage from '../../components/Layout';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import  axios  from 'axios';

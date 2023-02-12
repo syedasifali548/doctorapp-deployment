@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+// import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { ToastContainer } from 'react-toastify'
@@ -14,6 +14,8 @@ import NotificationPage from "./pages/NotificationPage";
 import Doctors from './pages/admin/Doctors';
 import Users from './pages/admin/Users';
 import Profile from "./pages/Doctor/Profile";
+import Home from "./pages/Home";
+import BookingPage from './pages/BookingPage';
 
 
 function App() {
@@ -27,7 +29,7 @@ const {loading} = useSelector((state)=>state.alerts)
         <Routes>
           <Route path="/"  element={
           <ProtectedRoute>
-            <HomePage/>
+            <Home/>
           </ProtectedRoute>}/>
           <Route path="/apply-doctor"  element={
           <ProtectedRoute>
@@ -38,6 +40,14 @@ const {loading} = useSelector((state)=>state.alerts)
               element={
                 <ProtectedRoute>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+          <Route
+              path="/doctor/book-appointment/:doctorId"
+              element={
+                <ProtectedRoute>
+                  <BookingPage />
                 </ProtectedRoute>
               }
             />

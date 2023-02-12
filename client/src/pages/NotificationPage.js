@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { message, Tabs } from "antd";
 import axios from 'axios'
-import HomePage from "./HomePage";
+import HomePage from "../components/Layout";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { hideLoading, showLoading } from "../redux/features/alertSlice";
