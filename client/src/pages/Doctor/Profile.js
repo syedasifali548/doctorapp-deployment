@@ -10,6 +10,7 @@ import { hideLoading, showLoading } from '../../redux/features/alertSlice';
 import { useNavigate } from 'react-router-dom';
 import moment from "moment";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
+import Layout from '../../components/Layout';
 const Profile = () => {
    
   const {user} = useSelector((state)=>state.user)
@@ -77,7 +78,7 @@ const Profile = () => {
       getDoctorData()
    },[])
   return (
-    <HomePage>
+    <Layout>
      <h1>Manage Profile</h1>
       {doctor && (
         <Form
@@ -183,7 +184,7 @@ const Profile = () => {
               </Form.Item>
             </Col>
             <Col xs={24} md={24} lg={8}>
-              <Form.Item label="Timings" name="timings" required>
+            <Form.Item label="Timings" name="timings" required>
                 <TimePicker.RangePicker format="HH:mm" />
               </Form.Item>
             </Col>
@@ -196,7 +197,7 @@ const Profile = () => {
           </Row>
         </Form>
       )}
-    </HomePage>
+    </Layout>
   )
 }
 
