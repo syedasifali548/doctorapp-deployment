@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import axios from 'axios';
 import { DatePicker, message, TimePicker } from "antd";
 import moment from "moment";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
@@ -19,6 +19,7 @@ const BookingPage = () => {
    const params = useParams()
    const dispatch = useDispatch()
    const {user} = useSelector((state)=>state.user)
+   const navigate = useNavigate()
 
 
    const getUserData =async()=>{
@@ -67,6 +68,7 @@ const BookingPage = () => {
         dispatch(hideLoading());
         if (res.data.success) {
           message.success(res.data.message);
+          navigate('/')
         }
       } catch (error) {
         dispatch(hideLoading());
@@ -113,7 +115,7 @@ getUserData()
   return (
     <Layout>
       <Row>
-        <Col>
+        <Col md={12}>
         <h3 className='text-center mt-2'>Booking page</h3>
         </Col>
         <Col md={6}>

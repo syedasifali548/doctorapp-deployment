@@ -38,8 +38,8 @@ const Home = () => {
       }, []);   
   return (
     <Layout>
-      <Row>
-        {doctors && doctors.map((doctor) => <DoctorList doctor={doctor} />)}
+      <Row className="doctor_row">
+        {doctors && doctors.map((doctor,index) => <DoctorList doctor={doctor} key={index}/>)}
       </Row>
     </Layout>
   )

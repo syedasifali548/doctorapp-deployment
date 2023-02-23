@@ -43,10 +43,10 @@ const Layout = ({ children }) => {
     <section>
       <Container fluid>
         <Row>
-          <Col md={2}>
+          <Col md={3}>
             <Sidebar />
           </Col>
-          <Col md={10}>
+          <Col md={9}>
             <Row>
               <Col md={12}>
                 <div className="topbar">

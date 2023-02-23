@@ -82,8 +82,8 @@ const NotificationPage = () => {
                   style={{ cursor: "pointer" }}
                   >Mark All Read</h5>
                 </div>
-                {user?.notification.map((notificationMsg)=>(
-                <div className="card" style={{ cursor: "pointer" }}>
+                {user?.notification.map((notificationMsg,index)=>(
+                <div className="card" style={{ cursor: "pointer" }} key={index}>
                   <div className="card-text"
                   onClick={()=>navigate(notificationMsg.onClickPath)}
                   >
@@ -99,8 +99,8 @@ const NotificationPage = () => {
                   onClick={handleMarkDeleteAll}
                   >Delete All Read</h5>
                 </div>
-                {user?.seennotification.map((notificationMsg)=>(
-                <div className="card" style={{ cursor: "pointer" }}>
+                {user?.seennotification.map((notificationMsg,index)=>(
+                <div className="card" style={{ cursor: "pointer" }} key={index}>
                   <div className="card-text"
                   onClick={()=>navigate(notificationMsg.onClickPath)}
                   >

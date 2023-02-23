@@ -58,7 +58,7 @@ const onfinishHandler= async(values)=>{
           <Link to="/login" className="m-2">
             Already user login here
           </Link>
-          <button className="btn btn-primary" type="submit">
+          <button className="btn auth_btn" type="submit">
             Register
           </button>
         </Form>

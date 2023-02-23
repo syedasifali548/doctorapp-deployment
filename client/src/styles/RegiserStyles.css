@@ -24,3 +24,34 @@
 .register-form .form_footer .already_login{
  text-decoration: none;
 }
+.auth_btn{
+  background-color: #645CBB;
+  color: white;
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+}
+.auth_btn:hover{
+  background-color: black;
+  color: white;
+  transition: all ease-in 0.5s;
+}
+@media(max-width:992.99px){
+  .register-form {
+    width: 60%;
+}
+}
+@media(max-width:540.99px){
+  .register-form {
+    width: 80%;
+}
+}
+@media(max-width:480.99px){
+  .register-form {
+    width: 94%;
+}
+.register-form input {
+  padding: 5px;
+  height: 35px;
+}
+}

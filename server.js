@@ -21,8 +21,8 @@ app.use("/api/doctor", require("./routes/doctorRoutes"));
 
 
 app.listen(port, () => {
-  console.log(
-    `Server Running in ${process.env.NODE_ENV} Mode on port ${process.env.PORT}`
-      .bgCyan.white
-  );
+  // console.log(
+  //   `Server Running in ${process.env.NODE_ENV} Mode on port ${process.env.PORT}`
+  //     .bgCyan.white
+  // );
 });

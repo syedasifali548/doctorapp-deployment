@@ -43,7 +43,7 @@ const Sidebar = () => {
   : userMenu;
   return (
     <>
-      <Navbar expand="lg">
+      <Navbar expand="xl">
         <div className="sidebar_container">
           <Navbar.Brand to="/">
             <h4 style={{color:'#fff'}}>
@@ -53,11 +53,11 @@ const Sidebar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto sidebar_links">
-              {SidebarMenu.map((menu) => {
+              {SidebarMenu.map((menu,index) => {
                 const isActive = location.pathname === menu.path;
                 return (
                   <>
-                    <div className={`menu-item ${isActive && "active"}`}>
+                    <div className={`menu-item ${isActive && "active"}`} key={index}>
                       <i className={menu.icon}></i>
                       <Link to={menu.path}>{menu.name}</Link>
                     </div>
