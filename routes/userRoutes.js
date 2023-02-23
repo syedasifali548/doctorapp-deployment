@@ -30,7 +30,7 @@ router.post("/get-all-notification",getAllNotificationController,authController)
 router.post("/delete-all-notification",deleteAllNotificationController,authController);
 //Auth || POST
 router.post("/getUserData", authMiddleware, authController);
-//GET ALL DOC
+//GET ALL DOCTORS
 router.get("/getAllDoctors", authMiddleware, getAllDocotrsController);
 //BOOK APPOINTMENT
 router.post("/book-appointment", authMiddleware, bookeAppointmnetController);
